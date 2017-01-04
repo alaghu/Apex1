@@ -4,86 +4,93 @@
 // This pattern is completely inspired from
 // https://www.youtube.com/playlist?list=PLoYCgNOIyGABs-wDaaxChu82q_xQgUb4f
 
-    // This finally worked. We are able to obtain the list of bugs (19-Dec)
-    // TODO
-    // Apex does not accept so many lines
+// This finally worked. We are able to obtain the list of bugs (19-Dec)
+// TODO
+// Apex does not accept so many lines
 
+
+// unsafeWindow.on = true;
+
+console.log ('#### START:Get Comma Separted Values in apex report - By Anand Alaghu #####');
+
+// this.$ = this.jQuery = jQuery.noConflict (true);
 
 // This is object literal pattern
 // This object will Analyze the Interactive Report and obtain the list of bugs
 var interactiveReportRegion = {
-        // List of bugs from the interactive report
-        listOfBugsFromReport: [],
-        // Some Properties on analyzing the regions
-        isTheTableOfBugsPresent: false,
+    // List of bugs from the interactive report
+    listOfBugsFromReport: [],
+    // Some Properties on analyzing the regions
+    isTheTableOfBugsPresent: false,
 // The initializing function - All functions should be called from here.
-        init: function () {
-            this.cacheDom ();
-            this.analyzeInteractiveReport ();
-            this.getListofBugs ();
-            this.render ();
-            this.logging ();
-        },
+    init: function () {
+        this.cacheDom ();
+        // this.analyzeInteractiveReport ();
+        // this.getListofBugs ();
+        // this.render ();
+        this.logging ();
+    },
 // Fetching the interactive report - Only once!
-        cacheDom: function () {
-            // Find Interactive Report's DOM element
-            // The variables used to assign objects from JQuery will have
-            // $ sign as prefix
-            // TODO : This has to be variablized. Right now it is hard coded
-            this.$interactiveReport = $ ('#BugPreventiveIR_data_panel');
-        },
+    cacheDom: function () {
+        // Find Interactive Report's DOM element
+        // The variables used to assign objects from JQuery will have
+        // $ sign as prefix
+        // TODO : This has to be variablized. Right now it is hard coded
+        this.$interactiveReport = jQuery ('#BugPreventiveIR_data_panel');
+    },
 // TODO: This can be commented out later
 // Any Rendering of the UI goes here
-        render: function () {
-            // This iterates through the object and gets the html (The bug number)
-            this.$linkInsideRowsContainingBugs.each (function () {
-                $ (this).append (' - ' + $ (this).html ());
-            });
-        },
+    render: function () {
+        // This iterates through the object and gets the html (The bug number)
+        this.$linkInsideRowsContainingBugs.each (function () {
+            $ (this).append (' - ' + $ (this).html ());
+        });
+    },
 //  Analyze and Inspect the Interactive Report
-        analyzeInteractiveReport: function () {
-            // If the table Inside the interactive Report is present,
-            // set the isTheTableOfBugsPresent to true
-            this.$tableIndsideInteractiveReport = this.$interactiveReport.find ('table');
-            if (this.$tableIndsideInteractiveReport.length !== 0) {
-                this.isTheTableOfBugsPresent = true;
-            }
-        },
-// Get the List of Bugs
-        getListofBugs: function () {
-            if (this.isTheTableOfBugsPresent === true) {
-                // assigning this (object reference to a local variable
-                // This can be accessed inside the each function
-                var _this = this;
-
-                this.$tableRows = this.$tableIndsideInteractiveReport.find ('tr');
-
-                // The Table cell (TD) , which has headers headers attribute that starts with
-                this.$rowsContainingBugs = this.$tableRows.find ("td[headers^='BugNumber']");
-                this.$linkInsideRowsContainingBugs = this.$rowsContainingBugs.find ("a");
-
-                // Iterate through this.$this.$linkInsideRowsContainingBugs
-                this.$linkInsideRowsContainingBugs.each (function (index) {
-                    console.log (index + ":" + $ (this).html ());
-
-                    // Pushing into array
-                    _this.listOfBugsFromReport.push ($ (this).html ());
-
-                });
-
-                this.$bugNumberInLinkInsideRowsContainingBugs = this.$linkInsideRowsContainingBugs.html ();
-            }
-        },
-// All Logging goes in here
-        logging: function () {
-            console.log ("The list of bugs " + this.listOfBugsFromReport);
-            console.log ("Is the Interactive Report Present ? " + this.isTheInteractiveReportPresent);
-            console.log ("Is the Table of Bugs Present ? " + this.isTheTableOfBugsPresent);
-            console.log ("The table inside interactive Report " + this.$tableIndsideInteractiveReport);
-            console.log ("The Number of Table Rows = " + this.$tableRows.length);
-
+    analyzeInteractiveReport: function () {
+        // If the table Inside the interactive Report is present,
+        // set the isTheTableOfBugsPresent to true
+        this.$tableIndsideInteractiveReport = this.$interactiveReport.find ('table');
+        if (this.$tableIndsideInteractiveReport.length !== 0) {
+            this.isTheTableOfBugsPresent = true;
         }
-    };
+    },
+// Get the List of Bugs
+    getListofBugs: function () {
+        if (this.isTheTableOfBugsPresent === true) {
+            // assigning this (object reference to a local variable
+            // This can be accessed inside the each function
+            var _this = this;
+
+            this.$tableRows = this.$tableIndsideInteractiveReport.find ('tr');
+
+            // The Table cell (TD) , which has headers headers attribute that starts with
+            this.$rowsContainingBugs = this.$tableRows.find ("td[headers^='BugNumber']");
+            this.$linkInsideRowsContainingBugs = this.$rowsContainingBugs.find ("a");
+
+            // Iterate through this.$this.$linkInsideRowsContainingBugs
+            this.$linkInsideRowsContainingBugs.each (function (index) {
+                console.log (index + ":" + $ (this).html ());
+
+                // Pushing into array
+                _this.listOfBugsFromReport.push ($ (this).html ());
+
+            });
+
+            this.$bugNumberInLinkInsideRowsContainingBugs = this.$linkInsideRowsContainingBugs.html ();
+        }
+    },
+// All Logging goes in here
+    logging: function () {
+        console.log($);
+        console.log ("The list of bugs " + this.listOfBugsFromReport);
+        console.log ("Is the Interactive Report Present ? " + this.isTheInteractiveReportPresent);
+        console.log ("Is the Table of Bugs Present ? " + this.isTheTableOfBugsPresent); // jshint ignore:line
+        console.log ("The table inside interactive Report " + this.$tableIndsideInteractiveReport); // jshint ignore:line
+        console.log ("The Number of Table Rows = " + this.$tableRows.length); // jshint ignore:line
+
+    }
+};
 
 //This Object will be used to derive the final BugDBLink
 var bugDBLinkForListofBugsFromReport = {
@@ -94,7 +101,7 @@ var bugDBLinkForListofBugsFromReport = {
     },
 // All Logging goes in here
     logging: function () {
-        console.log (" I am inside bugDBLinkForListofBugsFromReport");
+        console.log (" I am inside bugDBLinkForListofBugsFromReport"); // jshint ignore:line
     }
 };
 
@@ -114,12 +121,12 @@ var displayOfBugList = {
     },
 // All Logging goes in here
     logging: function () {
-        console.log (" I am inside displayOfBugList");
+        console.log (" I am inside displayOfBugList"); // jshint ignore:line
     }
 };
 
 
-console.clear ();
+console.clear (); // jshint ignore:line
 // Invoking the Objects
 interactiveReportRegion.init ();
 bugDBLinkForListofBugsFromReport.init ();
