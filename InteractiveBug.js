@@ -6,11 +6,10 @@
 
 // This finally worked. We are able to obtain the list of bugs (19-Dec)
 
-$ (document).ready (function () {
 
     // This is object literal pattern
     // This object will Analyze the Interactive Report and obtain the list of bugs
-    var interactiveReportRegion = {
+var interactiveReportRegion = {
         // List of bugs from the interactive report
         listOfBugsFromReport: [],
         // Some Properties on analyzing the regions
@@ -75,13 +74,6 @@ $ (document).ready (function () {
         },
         // All Logging goes in here
         logging: function () {
-            // This set seems to be coming up correctly
-            console.log (" This is $ " + $);
-            console.log (" This is jQuery " + jQuery);
-            console.log (" This is an object from cacheDom : this.$interactiveReport " + this.$interactiveReport);
-            // The next set of debug to get properties of a jQueryObject
-            console.log (" This is an object from cacheDom : this.$interactiveReport.length " + this.$interactiveReport.length);
-
             console.log ("The list of bugs " + this.listOfBugsFromReport);
             console.log ("Is the Interactive Report Present ? " + this.isTheInteractiveReportPresent);
             console.log ("Is the Table of Bugs Present ? " + this.isTheTableOfBugsPresent);
@@ -91,41 +83,51 @@ $ (document).ready (function () {
         }
     };
 
-    //This Object will be used to derive the final BugDBLink
-    var bugDBLinkForListofBugsFromReport = {
-        //Try and annotate the different parameters
-        bugDBLinkFoundation: "",
-        init: function () {
-            this.logging ();
-        },
-// All Logging goes in here
-        logging: function () {
-            console.log (" I am inside bugDBLinkForListofBugsFromReport"); // jshint ignore:line
-        }
-    };
+//This Object will be used to derive the final BugDBLink
+var bugDBLinkForListofBugsFromReport = {
+    //Try and annotate the different parameters
+    bugDBLinkFoundation: "",
+    init: function () {
+        this.logging ();
+    },
+    // All Logging goes in here
+    logging: function () {
+        console.log (" I am inside bugDBLinkForListofBugsFromReport");
+    }
+};
 
-    // This Object will deal with displaying the link
-    var displayOfBugList = {
-        // Wanted features
-        // 1. Position it right above the Bug header cell
-        // 2. Display count bubble.
-        // 3. On Hover display more details for clicking
-        // 4. If No bugs, display zero bubble and disappear
-        // 5. If bug is control broken, only one bug bubble
+// This Object will deal with displaying the link
+var displayOfBugList = {
+    // Wanted features
+    // 1. Position it right above the Bug header cell
+    // 2. Display count bubble.
+    // 3. On Hover display more details for clicking
+    // 4. If No bugs, display zero bubble and disappear
+    // 5. If bug is control broken, only one bug bubble
 
-        cssForDisplayRegion: {},
-        init: function () {
-            this.logging ();
+    cssForDisplayRegion: {},
+    init: function () {
+        this.logging ();
+        this.render ();
 
-        },
-// All Logging goes in here
-        logging: function () {
-            console.log (" I am inside displayOfBugList"); // jshint ignore:line
-        }
-    };
+    },
+    // All Rendering goes in here
+    render: function () {
+        // Need to derive the table header from $interactiveReport
+        // TODO: This should come inside cacheDom function
+        $bugHeaderColumn = $ ('#BugPreventiveIR_data_panel');
 
+    },
+    // All Logging goes in here
+    logging: function () {
+        console.log (" I am inside displayOfBugList");
+        console.log (" Do we have the same values from interactiveReport object " + this.$bugHeaderColumn);
+        console.log (" Values from interactiveReport object " + typeof interactiveReportRegion.$interactiveReport);
+    }
+};
 
-    console.clear (); // jshint ignore:line
+$ (document).ready (function () {
+    console.clear ();
     // Invoking the Objects
     interactiveReportRegion.init ();
     bugDBLinkForListofBugsFromReport.init ();
