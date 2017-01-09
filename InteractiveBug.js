@@ -6,9 +6,19 @@
 
 // This finally worked. We are able to obtain the list of bugs (19-Dec)
 
+//    TODO
+//    The problem I am facing on 08-Jan.
+//    I am unable to access interactiveReportRegions cachedom object in
+//      displayOfBugList.
+//  This should be fundamental to understanding javascript.
+//    Things to try
 
-    // This is object literal pattern
-    // This object will Analyze the Interactive Report and obtain the list of bugs
+//1. Display the typeof for $interactiveReport in   interactiveReportRegions.logging
+//2. Create a simple gist with two object and use case for question in Stack Overflow
+//3. Pass this object into the init() function of displayOfBugList
+
+// This is object literal pattern
+// This object will Analyze the Interactive Report and obtain the list of bugs
 var interactiveReportRegion = {
         // List of bugs from the interactive report
         listOfBugsFromReport: [],
@@ -75,7 +85,7 @@ var interactiveReportRegion = {
         // All Logging goes in here
         logging: function () {
             console.log ("The list of bugs " + this.listOfBugsFromReport);
-            console.log ("Is the Interactive Report Present ? " + this.isTheInteractiveReportPresent);
+            console.log ("What is  " + this.isTheInteractiveReportPresent);
             console.log ("Is the Table of Bugs Present ? " + this.isTheTableOfBugsPresent);
             console.log ("The table inside interactive Report " + this.$tableIndsideInteractiveReport);
             console.log ("The Number of Table Rows = " + this.$tableRows.length);
