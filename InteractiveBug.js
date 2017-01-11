@@ -6,6 +6,10 @@
 
 // This is object literal pattern
 // This object will Analyze the Interactive Report and obtain the list of bugs
+
+// This Object will deal with displaying the link
+
+
 var interactiveReportRegion = {
     init: function () {
         this.cacheDom ();
@@ -24,20 +28,23 @@ var interactiveReportRegion = {
     }
 };
 
-// This Object will deal with displaying the link
 var displayOfBugList = {
-    // Assiging to a
     $IR: interactiveReportRegion.$interactiveReport,
+    a: "Thanks Rahul",
+    // Assiging to a
     init: function () {
-        this.logging ();
+        //this.logging ();
+        // this.$IR = interactiveReportRegion.$interactiveReport;
     },
     // All Logging goes in here
     logging: function () {
         console.log (" I am inside displayOfBugList");
-        // This comes up as undefined as well as in console
-        console.log (this.$IR);
         // Similairly even this comes up as undedefined but is accessible through console
-        console.log(interactiveReportRegion.$interactiveReport);
+        console.log (" This is $interactive report of OBJ1 " + interactiveReportRegion.$interactiveReport);
+        // This comes up as undefined as well as in console
+        console.log (" This is $IR of OBJ2 " + this.$IR);
+        console.log (" This is a " + this.a);
+
     }
 };
 
@@ -46,5 +53,8 @@ $ (document).ready (function () {
     console.clear ();
     // Invoking the Objects only after document is ready.
     interactiveReportRegion.init ();
-    displayOfBugList.init ();
+
+    // displayOfBugList.init();
+    displayOfBugList.logging ();
+
 });
