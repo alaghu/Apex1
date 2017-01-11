@@ -26,7 +26,6 @@ var interactiveReportRegion = {
     // The initializing function - All functions should be called from here.
     init: function () {
         this.cacheDom ();
-        this.analyzeInteractiveReport ();
         this.getListofBugs ();
         this.render ();
         this.logging ();
@@ -62,31 +61,27 @@ var interactiveReportRegion = {
 
     // Get the List of Bugs
     getListofBugs: function () {
-        if (this.isTheTableOfBugsPresent === true) {
-            // assigning this (object reference to a local variable
-            // This can be accessed inside the each function
-            var _this = this;
+        // assigning this (object reference to a local variable
+        // This can be accessed inside the each function
+        var _this = this;
 
-            // Iterate through this.$this.$linkInsideRowsContainingBugs
-            this.$linkInsideRowsContainingBugs.each ( function ( index ) {
-                console.log ( index + ":" + $ ( this ).html () );
+        // Iterate through this.$this.$linkInsideRowsContainingBugs
+        this.$linkInsideRowsContainingBugs.each ( function ( index ) {
+            console.log ( index + ":" + $ ( this ).html () );
 
-                // Pushing into array
-                _this.listOfBugsFromReport.push ( $ ( this ).html () );
+            // Pushing into array
+            _this.listOfBugsFromReport.push ( $ ( this ).html () );
 
-            } );
+        } );
 
-            this.$bugNumberInLinkInsideRowsContainingBugs = this.$linkInsideRowsContainingBugs.html ();
-        }
+        this.$bugNumberInLinkInsideRowsContainingBugs = this.$linkInsideRowsContainingBugs.html ();
+
     },
 
     // All Logging goes in here
     logging: function () {
         console.log ( "The list of bugs " + this.listOfBugsFromReport );
-        console.log ( "What is  " + this.isTheInteractiveReportPresent );
-        console.log ( "Is the Table of Bugs Present ? " + this.isTheTableOfBugsPresent );
-        console.log ( "The table inside interactive Report " + this.$tableIndsideInteractiveReport );
-        console.log ( "The Number of Table Rows = " + this.$tableRows.length );
+        console.log ( "The Number of Bugs  = " + this.listOfBugsFromReport.length );
 
     }
 };
