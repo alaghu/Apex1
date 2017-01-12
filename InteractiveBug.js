@@ -27,12 +27,14 @@ var interactiveReportRegion = {
     bugDBBaseURL: "https://bug.oraclecorp.com/pls/bug/WEBBUG_REPORTS.do_edit_report?rpt_title=&fcont_arr=off&fid_arr=157&fcont_arr=",
 
     // The HTML for Bug Header Column
-    htmlForLink: "<DIV>Bug</DIV>",
+    //htmlForLink: "<span class=\"badge bg-green\">25</span>",
 
     // The initializing function - All functions should be called from here.
     init: function () {
         this.cacheDom ();
         this.getListofBugs ();
+        this.createFinalBugLink ();
+        this.finalHTML ();
         this.render ();
         this.logging ();
     },
@@ -57,12 +59,7 @@ var interactiveReportRegion = {
     // Any Rendering of the UI goes here
     render: function () {
         // This is the overlaying DIV
-        this.$bugNumberHeaderCell.append(this.htmlForLink);
-
-        // This iterates through the object and gets the html (The bug number)
-        this.$linkInsideRowsContainingBugs.each (function () {
-            $ (this).append (' - ' + $ (this).html ());
-        });
+        this.$bugNumberHeaderCell.append (this.$htmlForLink);
     },
 
     // Get the List of Bugs
@@ -84,10 +81,26 @@ var interactiveReportRegion = {
 
     },
 
+    // Concatentenate Bug Link with list of Bugs
+    createFinalBugLink: function () {
+        //itereate through listOfBugsFromReport
+        this.listOfBugsAsConcatentatedText = "";
+        this.listOfBugsAsConcatentatedText = this.listOfBugsFromReport.join (",");
+        this.finalBugDBLink                = this.bugDBBaseURL + this.listOfBugsAsConcatentatedText +
+            "&fid_arr=40&fcont_arr=2&fid_arr=100&cid_arr=2&cid_arr=27&cid_arr=9&cid_arr=8&cid_arr=7&cid_arr=11&cid_arr=6&cid_arr=12&cid_arr=13&f_count=3&c_count=9&query_type=1";
+
+    },
+    finalHTML         : function () {
+
+        this.$htmlForLink = $ ('<a></a>').attr ("href", this.finalBugDBLink).html ('<span class="badge bg-green">' + this.listOfBugsFromReport.length + '</span>');
+
+    },
     // All Logging goes in here
-    logging: function () {
+    logging           : function () {
         console.log ("The list of bugs " + this.listOfBugsFromReport);
         console.log ("The Number of Bugs  = " + this.listOfBugsFromReport.length);
+        console.log ("The concatenated list of bug " + this.listOfBugsAsConcatentatedText);
+        console.log (" html for link " + this.$htmlForLink);
 
     }
 };
@@ -96,4 +109,9 @@ $ (document).ready (function () {
     console.clear ();
     // Invoking the Objects
     interactiveReportRegion.init ();
+});
+
+$(window).on("apexrefresh", function(e) {
+    console.log(e.type);
+    console.log("Anand , the page is refreshed");
 });
