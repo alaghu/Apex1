@@ -23,6 +23,12 @@ var interactiveReportRegion = {
     // List of bugs from the interactive report
     listOfBugsFromReport: [],
 
+    //The base URL for Bug Mass Update
+    bugDBBaseURL: "https://bug.oraclecorp.com/pls/bug/WEBBUG_REPORTS.do_edit_report?rpt_title=&fcont_arr=off&fid_arr=157&fcont_arr=",
+
+    // The HTML for Bug Header Column
+    htmlForLink: "<DIV>Bug</DIV>",
+
     // The initializing function - All functions should be called from here.
     init: function () {
         this.cacheDom ();
@@ -37,26 +43,26 @@ var interactiveReportRegion = {
         // The variables used to assign objects from JQuery will have
         // $ sign as prefix
         // TODO : This has to be variablized. Right now it is hard coded
-        this.$interactiveReport             = $ ( '#BugPreventiveIR_data_panel' );
-        this.$tableIndsideInteractiveReport = this.$interactiveReport.find ( 'table' );
-        this.$tableRows                     = this.$tableIndsideInteractiveReport.find ( 'tr' );
+        this.$interactiveReport             = $ ('#BugPreventiveIR_data_panel');
+        this.$tableIndsideInteractiveReport = this.$interactiveReport.find ('table');
+        this.$tableRows                     = this.$tableIndsideInteractiveReport.find ('tr');
 
         // The Table cell (TD) , which has headers headers attribute that starts with
-        this.$rowsContainingBugs           = this.$tableRows.find ( "td[headers^='BugNumber']" );
-        this.$linkInsideRowsContainingBugs = this.$rowsContainingBugs.find ( "a" );
-        this.$bugNumberHeaderCell          = this.$tableRows.find ( "th#BugNumber" );
+        this.$rowsContainingBugs           = this.$tableRows.find ("td[headers^='BugNumber']");
+        this.$linkInsideRowsContainingBugs = this.$rowsContainingBugs.find ("a");
+        this.$bugNumberHeaderCell          = this.$tableRows.find ("th#BugNumber");
     },
 
     // TODO: This can be commented out later
     // Any Rendering of the UI goes here
     render: function () {
-
-        this.$bugNumberHeaderCell.css ( {"background-color": "yellow"} );
+        // This is the overlaying DIV
+        this.$bugNumberHeaderCell.append(this.htmlForLink);
 
         // This iterates through the object and gets the html (The bug number)
-        this.$linkInsideRowsContainingBugs.each ( function () {
-            $ ( this ).append ( ' - ' + $ ( this ).html () );
-        } );
+        this.$linkInsideRowsContainingBugs.each (function () {
+            $ (this).append (' - ' + $ (this).html ());
+        });
     },
 
     // Get the List of Bugs
@@ -66,13 +72,13 @@ var interactiveReportRegion = {
         var _this = this;
 
         // Iterate through this.$this.$linkInsideRowsContainingBugs
-        this.$linkInsideRowsContainingBugs.each ( function ( index ) {
-            console.log ( index + ":" + $ ( this ).html () );
+        this.$linkInsideRowsContainingBugs.each (function (index) {
+            console.log (index + ":" + $ (this).html ());
 
             // Pushing into array
-            _this.listOfBugsFromReport.push ( $ ( this ).html () );
+            _this.listOfBugsFromReport.push ($ (this).html ());
 
-        } );
+        });
 
         this.$bugNumberInLinkInsideRowsContainingBugs = this.$linkInsideRowsContainingBugs.html ();
 
@@ -80,14 +86,14 @@ var interactiveReportRegion = {
 
     // All Logging goes in here
     logging: function () {
-        console.log ( "The list of bugs " + this.listOfBugsFromReport );
-        console.log ( "The Number of Bugs  = " + this.listOfBugsFromReport.length );
+        console.log ("The list of bugs " + this.listOfBugsFromReport);
+        console.log ("The Number of Bugs  = " + this.listOfBugsFromReport.length);
 
     }
 };
 
-$ ( document ).ready ( function () {
+$ (document).ready (function () {
     console.clear ();
     // Invoking the Objects
     interactiveReportRegion.init ();
-} );
+});
