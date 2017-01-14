@@ -118,12 +118,46 @@ $(window).on("click", function(e) {
 
 
 // ------------Readme---------------------
-
+// Questions
 //Where to place in Apex ?
 //Where to refer in Apex ?
-//What variables need to be updated in the script?
-//What changes to be made in Apex?
+//What variables need to be updated in Apex and the script?
 //What are the dependencies?
+
+// Answers
+//Where to place in Apex ?
+//  Need to navigate to project > Shared Components > Static Project files.
+//  Note down the path. Eg.  #WORKSPACE_IMAGES#InteractiveBug.js
+
+//Where to refer in Apex?
+//  This is for referring in each required page. Possibly this can be
+//  included for the entire project in the project setting. Go to Page
+//  >  Page Proerties > Javascript > File URLS > Values from previous answer.
+//  e.g #WORKSPACE_IMAGES#InteractiveBug.js
+
+//What variables need to be updated in Apex and the script?
+//  There are two changes to apex, which have to be reflected in the script.
+//  The first is a unique ID for the interactive Report and the second being
+//  a unique ID for the bug column.
+//
+//  Interactive Report
+//  In Apex, ensure the interactive report has a unique ID. Go to Interactive
+//  report region > Region Properties > Advanced > Static ID > Provide a Unique
+//  Value. e.g BugPreventiveIR
+//  In the script, need to update interactiveReportRegion.cacheDom method with
+//  BugPreventiveIR_data_panel as the selector for  $interactiveReport. Note
+//  the _data_panel suffixed.
+//
+//  Bug Column
+//  In Apex, ensure the Bug Column has a unique ID.  Go to Interactive
+//  report > Column > Bug > Column Properties > Advanced > Static ID >
+//  Provide a Unique Value. e.g  BugNumber
+//  In the script, need to update interactiveReportRegion.cacheDom method with
+//  th#BugNumber as the selector for  $bugNumberHeaderCell. Note the 'th'
+//  prefixed. indicating it is table header.
+
+//What are the dependencies?
+// We need to innclude badges.css.
 
 
 
@@ -140,6 +174,8 @@ $(window).on("click", function(e) {
 // 1. Position it right above the Bug header cell  - Done
 // 2. Display count bubble. - Done
 // 3. On Hover display more details for clicking
+// 4. Rename git Repo
+// 5. Use same rubymine setting
 
 // Fixes
 //
