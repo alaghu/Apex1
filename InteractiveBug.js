@@ -95,6 +95,15 @@ var interactiveReportRegion = {
         this.$htmlForLink = $ ('<a></a>').attr ("href", this.finalBugDBLink).html ('<span class="badge bg-green">' + this.listOfBugsFromReport.length + '</span>');
 
     },
+
+    // testing events
+    bindEvents: function () {
+        this.$tableRows.on('click',this.alertTest.bind(this));
+
+    },
+    alertTest: function () {
+        alert("hi there");
+    },
     // All Logging goes in here
     logging           : function () {
         console.log ("The list of bugs " + this.listOfBugsFromReport);
@@ -111,7 +120,9 @@ $ (document).ready (function () {
     interactiveReportRegion.init ();
 });
 
-$(window).on("apexrefresh", function(e) {
+//Refer to this for understanding refresh
+//http://vmorneau.me/using-apex-javascript-events/
+$(window).on("click", function(e) {
     console.log(e.type);
     console.log("Anand , the page is refreshed");
 });
