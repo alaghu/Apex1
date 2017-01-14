@@ -1,24 +1,13 @@
-/**
- * Created by anallaal on 09-Dec.
- */
-// This pattern is completely inspired from
-// https://www.youtube.com/playlist?list=PLoYCgNOIyGABs-wDaaxChu82q_xQgUb4f
+// Script to obtain the visible list of bugs from an interactive report and
+// provide a bug DB link to perform mass update.
+// Initially developed by Parul Shastry. Updated for Apex by Anand
+//
+// Contents
+// 1. Object interactiveReportRegion is defined
+// 2. interactiveReportRegion.init () is invoked inside document.ready
+// 3. Readme. Important!
 
-// Using a single Object till Hoisting issue be understood and know how
-// to initialize an object referencing another object (in Debug Branch)
 
-//    TODO
-
-// This is object literal pattern
-
-// Wanted features
-// 1. Position it right above the Bug header cell
-// 2. Display count bubble.
-// 3. On Hover display more details for clicking
-// 4. If No bugs, display zero bubble and disappear
-// 5. If bug is control broken, only one bug bubble
-
-// This object will Analyze the Interactive Report and obtain the list of bugs
 var interactiveReportRegion = {
     // List of bugs from the interactive report
     listOfBugsFromReport: [],
@@ -126,3 +115,31 @@ $(window).on("click", function(e) {
     console.log(e.type);
     console.log("Anand , the page is refreshed");
 });
+
+
+// ------------Readme---------------------
+
+//Where to place in Apex ?
+//Where to refer in Apex ?
+//What variables need to be updated in the script?
+//What changes to be made in Apex?
+//What are the dependencies?
+
+
+
+
+
+//--------------Other Notes-----------------
+// This pattern, object literal, is completely inspired from
+// https://www.youtube.com/playlist?list=PLoYCgNOIyGABs-wDaaxChu82q_xQgUb4f
+
+
+
+//    TODO
+// Wanted features
+// 1. Position it right above the Bug header cell  - Done
+// 2. Display count bubble. - Done
+// 3. On Hover display more details for clicking
+
+// Fixes
+//
