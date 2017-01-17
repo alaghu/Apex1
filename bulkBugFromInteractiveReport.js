@@ -156,7 +156,7 @@ $ ( window ).on ( "click", function ( e ) {
 //  prefixed. indicating it is table header.
 
 //What are the dependencies?
-// We need to innclude badges.css.
+// We need to include badges.css.
 
 //--------------Other Notes-----------------
 // This pattern, object literal, is completely inspired from
