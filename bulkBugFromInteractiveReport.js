@@ -10,30 +10,33 @@
 var interactiveReportRegion = {
     // List of bugs from the interactive report
     listOfBugsFromReport: [],
-
     //The base URL for Bug Mass Update
     bugDBBaseURL: "https://bug.oraclecorp.com/pls/bug/WEBBUG_REPORTS.do_edit_report?rpt_title=&fcont_arr=off&fid_arr=157&fcont_arr=",
 
-    // The HTML for Bug Header Column
-    //htmlForLink: "<span class=\"badge bg-green\">25</span>",
-
     // The initializing function - All functions should be called from here.
     init: function () {
+
+        // Initializing list of Bugs Array
+        this.listOfBugsFromReport = [];
+        // Invoking all the required functions
         this.cacheDom ();
         this.getListofBugs ();
         this.createFinalBugLink ();
         this.finalHTML ();
         this.render ();
+        this.bindEvents ();
         this.logging ();
     },
 
     // Fetching the interactive report - Only once!
     cacheDom: function () {
+
         // Find Interactive Report's DOM element
         // The variables used to assign objects from JQuery will have
         // $ sign as prefix
         // TODO : This has to be variablized. Right now it is hard coded
         this.$interactiveReport = $ ( '#BugPreventiveIR_data_panel' );
+        this.$interactiveReportIr = $('#BugPreventiveIR_ir')  ;
         this.$tableIndsideInteractiveReport = this.$interactiveReport.find ( 'table' );
         this.$tableRows = this.$tableIndsideInteractiveReport.find ( 'tr' );
         this.$bugNumberHeaderCell = this.$tableRows.find ( "th#BugNumber" );
@@ -44,62 +47,57 @@ var interactiveReportRegion = {
 
     },
 
-    // TODO: This can be commented out later
     // Any Rendering of the UI goes here
     render: function () {
+
         // This is the overlaying DIV
         this.$bugNumberHeaderCell.append ( this.$htmlForLink );
     },
 
     // Get the List of Bugs
     getListofBugs: function () {
+
         // assigning this (object reference to a local variable
         // This can be accessed inside the each function
-        var _this = this;
+        var self = this;
 
         // Iterate through this.$this.$linkInsideRowsContainingBugs
         this.$linkInsideRowsContainingBugs.each ( function ( index ) {
-            console.log ( index + ":" + $ ( this ).html () );
-
             // Pushing into array
-            _this.listOfBugsFromReport.push ( $ ( this ).html () );
-
+            self.listOfBugsFromReport.push ( $ ( this ).html () );
         } );
 
         this.$bugNumberInLinkInsideRowsContainingBugs = this.$linkInsideRowsContainingBugs.html ();
-
-    },
+     },
 
     // Concatentenate Bug Link with list of Bugs
     createFinalBugLink: function () {
+
         //itereate through listOfBugsFromReport
         this.listOfBugsAsConcatentatedText = "";
         this.listOfBugsAsConcatentatedText = this.listOfBugsFromReport.join ( "," );
         this.finalBugDBLink = this.bugDBBaseURL + this.listOfBugsAsConcatentatedText +
             "&fid_arr=40&fcont_arr=2&fid_arr=100&cid_arr=2&cid_arr=27&cid_arr=9&cid_arr=8&cid_arr=7&cid_arr=11&cid_arr=6&cid_arr=12&cid_arr=13&f_count=3&c_count=9&query_type=1";
-
     },
+
+    //
     finalHTML         : function () {
 
         this.$htmlForLink = $ ( '<a></a>' ).attr ( "href", this.finalBugDBLink ).html ( '<span class="badge bg-green">' + this.listOfBugsFromReport.length + '</span>' );
 
     },
 
-    // testing events
+    // events
     bindEvents: function () {
-        this.$tableRows.on ( 'click', this.alertTest.bind ( this ) );
 
-    },
-    alertTest : function () {
-        alert ( "hi there" );
     },
     // All Logging goes in here
     logging   : function () {
+
         console.log ( "The list of bugs " + this.listOfBugsFromReport );
         console.log ( "The Number of Bugs  = " + this.listOfBugsFromReport.length );
         console.log ( "The concatenated list of bug " + this.listOfBugsAsConcatentatedText );
         console.log ( " html for link " + this.$htmlForLink );
-
     }
 };
 
@@ -109,13 +107,13 @@ $ ( document ).ready ( function () {
     interactiveReportRegion.init ();
 } );
 
-//Refer to this for understanding refresh
-//http://vmorneau.me/using-apex-javascript-events/
-$ ( window ).on ( "click", function ( e ) {
-    console.log ( e.type );
-    console.log ( "Anand , the page is refreshed" );
+
+$ ( document ).on ( "apexafterrefresh", function ( e ) {
+    interactiveReportRegion.init ();
 } );
 
+//Refer to this for understanding refresh
+//http://vmorneau.me/using-apex-javascript-events/
 // ------------Readme---------------------
 // Questions
 //Where to place in Apex ?
