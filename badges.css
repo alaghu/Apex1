@@ -2,7 +2,7 @@
 
 .label,
 .badge {
-    background-color: #b5b5b5;
+    background-color: #70b59a;
     color: #fff;
     font-size: 12px;
     font-size: 0.75rem;
@@ -12,6 +12,12 @@
     text-align: center;
     vertical-align: baseline;
     white-space: nowrap;
+
+    position: absolute;
+    left: 26px;
+    top: 26px;
+    display: inline;
+
 }
 
 .label {

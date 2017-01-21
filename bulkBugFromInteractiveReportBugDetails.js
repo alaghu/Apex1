@@ -7,8 +7,6 @@
 // 2. interactiveReportRegion.init () is invoked depending on the event
 // 3. Readme. Important!
 
-
-
 var interactiveReportRegion = {
 
     // List of bugs from the interactive report
@@ -39,8 +37,8 @@ var interactiveReportRegion = {
         // The variables used to assign objects from JQuery will have
         // $ sign as prefix
         // TODO : This has to be variablized. Right now it is hard coded
-        this.$interactiveReport = $ ( '#BugPreventiveIR_data_panel' );
-        this.$interactiveReportIr = $ ( '#BugPreventiveIR_ir' );
+        this.$interactiveReport = $ ( '#BugDetailsIR_data_panel' );
+        this.$interactiveReportIr = $ ( '#BugDetailsIR_ir' );
         this.$tableIndsideInteractiveReport = this.$interactiveReport.find ( 'table' );
         this.$tableRows = this.$tableIndsideInteractiveReport.find ( 'tr' );
         this.$bugNumberHeaderCell = this.$tableRows.find ( "th#BugNumber" );
